@@ -11,3 +11,8 @@ def test_clean():
   assert yabfi.clean("asdlhasdkjsahdfdksjfsadf[]uiwoyeqwe++") == ['[', ']', '+', '+']
   assert yabfi.clean("[]+-><.,") == ['[', ']', '+', '-', '>', '<', '.', ',']
   assert yabfi.clean("") == []
+
+def test_check_correctness():
+  assert yabfi.clean(['[',']']) == ['[',']']
+  with pytest.raises(SyntaxError): yabfi.clean(['[',']',']'])
+  with pytest.raises(SyntaxError): yabfi.clean([']','[']) # fails it
