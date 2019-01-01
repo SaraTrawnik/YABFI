@@ -6,25 +6,37 @@ def interpret(program: list):
   memory = [0]*101
   pc = 0 //program counter
   callstack = []
-  while i < len(program):
-    if program[i] == '[':
+  while pc < len(program):
+    if program[pc] == '[':
+      if memory[point_at] != 0:
+        callstack.append(pc)
+        pc += 1
+      else:
+        pc += 1
+        count_back = 1
+        while count_back > 0:
+          if program[pc] == ']':
+            count_back -= 1
+          elif program[pc] == '[':
+            count_back += 1
+          pc += 1
+    elif program[pc] == ']':
+      if callstack != []:
+        pc = callstack.pop()
+    elif program[pc] = '+':
       pass
-    elif program[i] == ']':
+    elif program[pc] = '-':
       pass
-    elif program[i] = '+':
+    elif program[pc] = '>':
       pass
-    elif program[i] = '-':
+    elif program[pc] = '<':
       pass
-    elif program[i] = '>':
+    elif program[pc] = ',':
       pass
-    elif program[i] = '<':
-      pass
-    elif program[i] = ',':
-      pass
-    elif program[i] = '.':
+    elif program[pc] = '.':
       pass
     else:
-      i += 1  
+      pc += 1  
 
 def check_correctness(token: list):
   bracket_count = 0

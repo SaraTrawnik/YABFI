@@ -18,4 +18,4 @@ def test_check_correctness():
   with pytest.raises(SyntaxError): yabfi.check_correctness([']','[']) # fails it
 
 def test_interpret():
-  pass
+  assert yabfi.interpret(list("+[-[<<[+[--->]-[<<<]]]>>>-]>-.---.>..>.<<<<-.<+.>>>>>.>.<<.<-.")) == "hello world"
