@@ -2,6 +2,30 @@
 from re import findall
 from sys import argv
 
+def interpret(program: list):
+  memory = [0]*101
+  pc = 0 //program counter
+  callstack = []
+  while i < len(program):
+    if program[i] == '[':
+      pass
+    elif program[i] == ']':
+      pass
+    elif program[i] = '+':
+      pass
+    elif program[i] = '-':
+      pass
+    elif program[i] = '>':
+      pass
+    elif program[i] = '<':
+      pass
+    elif program[i] = ',':
+      pass
+    elif program[i] = '.':
+      pass
+    else:
+      i += 1  
+
 def check_correctness(token: list):
   bracket_count = 0
   for x in token:
@@ -29,3 +53,4 @@ if __name__ == "__main__":
   data = get_file(filename)
   code = clean(data)
   tokens = check_correctness(code)
+  interpret(tokens)
