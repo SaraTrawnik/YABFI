@@ -4,11 +4,12 @@ from sys import argv
 
 def interpret(program: list):
   memory = [0]*101
-  pc = 0 //program counter
+  pc = 0 #program counter
+  pointer = 0
   callstack = []
   while pc < len(program):
     if program[pc] == '[':
-      if memory[point_at] != 0:
+      if memory[pointer] != 0:
         callstack.append(pc)
         pc += 1
       else:
@@ -21,20 +22,37 @@ def interpret(program: list):
             count_back += 1
           pc += 1
     elif program[pc] == ']':
-      if callstack != []:
+      if callstack != []: 
         pc = callstack.pop()
-    elif program[pc] = '+':
-      pass
-    elif program[pc] = '-':
-      pass
-    elif program[pc] = '>':
-      pass
-    elif program[pc] = '<':
-      pass
-    elif program[pc] = ',':
-      pass
-    elif program[pc] = '.':
-      pass
+    elif program[pc]:
+      if program[pc] == '+':
+        if memory[pointer] >= 255: 
+          memory[pointer] = 0
+        else: 
+          memory[pointer] += 1
+      elif program[pc] == '-':
+        if memory[pointer] <= 0: 
+          memory[pointer] = 255
+        else: 
+          memory[pointer] -= 1
+      elif program[pc] == '>':
+        if pointer >= 100:
+          pointer = 0
+        else:
+          pointer += 1
+      elif program[pc] == '<':
+        if pointer <= 0:
+          pointer = 100
+        else:
+          pointer -= 1
+      elif program[pc] == ',':
+        inp = "garbage"
+        while len(inp) != 1:
+          inp = input(">")
+        memory[pointer] = ord(inp)
+      elif program[pc] == '.':
+        print(chr(memory[pointer]), end = '')
+      pc += 1
     else:
       pc += 1  
 
@@ -43,12 +61,14 @@ def check_correctness(token: list):
   for x in token:
     if x == ']':
       bracket_count -= 1
-    if x == '[':
+    if x == '[': 
       bracket_count += 1
     if bracket_count < 0:
       raise SyntaxError("brackets not balanced")
-  if bracket_count == 0: return token
-  else: raise SyntaxError("brakets not balanced")
+  if bracket_count == 0: 
+    return token
+  else: 
+    raise SyntaxError("brackets not balanced")
 
 def clean(inp: str):
   return findall("[\[|\]|+|\-|>|<|.|,|]", inp)
