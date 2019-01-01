@@ -2,12 +2,17 @@
 from re import findall
 from sys import argv
 
-# naive interpretation
 def check_correctness(token: list):
-  if token.count('[') == token.count(']'):
-    return token
-  else:
-    raise SyntaxError("brackets not balanced")
+  bracket_count = 0
+  for x in token:
+    if x == ']':
+      bracket_count -= 1
+    if x == '[':
+      bracket_count += 1
+    if bracket_count < 0:
+      raise SyntaxError("brackets not balanced")
+  if bracket_count == 0: return token
+  else: raise SyntaxError("brakets not balanced")
 
 def clean(inp: str):
   return findall("[\[|\]|+|\-|>|<|.|,|]", inp)
