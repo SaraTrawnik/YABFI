@@ -2,6 +2,9 @@
 from re import findall
 from sys import argv
 
+def clean(inp: str):
+  return findall("[\[|\]|+|\-|>|<|.|,|]", inp)
+
 def get_file(filename: str):
   try:
     with open(filename, "r") as f:
@@ -11,4 +14,5 @@ def get_file(filename: str):
 
 if __name__ == "__main__":
   script, filename = argv
-  code = get_file(filename)
+  data = get_file(filename)
+  code = clean(data)
