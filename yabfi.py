@@ -2,7 +2,7 @@
 from re import findall
 from sys import argv
 
-def interpret(program: list):
+def interpret(program: list, DEBUG: int):
   memory = [0]*101
   pc = 0 #program counter
   pointer = 0
@@ -22,18 +22,18 @@ def interpret(program: list):
             count_back += 1
           pc += 1
     elif program[pc] == ']':
-      if callstack != []: 
+      if callstack != []:
         pc = callstack.pop()
     elif program[pc]:
       if program[pc] == '+':
-        if memory[pointer] >= 255: 
+        if memory[pointer] >= 255:
           memory[pointer] = 0
         else: 
           memory[pointer] += 1
       elif program[pc] == '-':
-        if memory[pointer] <= 0: 
+        if memory[pointer] <= 0:
           memory[pointer] = 255
-        else: 
+        else:
           memory[pointer] -= 1
       elif program[pc] == '>':
         if pointer >= 100:
@@ -54,7 +54,9 @@ def interpret(program: list):
         print(chr(memory[pointer]), end = '')
       pc += 1
     else:
-      pc += 1  
+      pc += 1
+  if DEBUG:
+    return memory, pointer
 
 def check_correctness(token: list):
   bracket_count = 0
@@ -85,4 +87,4 @@ if __name__ == "__main__":
   data = get_file(filename)
   code = clean(data)
   tokens = check_correctness(code)
-  interpret(tokens)
+  interpret(tokens, 0)
